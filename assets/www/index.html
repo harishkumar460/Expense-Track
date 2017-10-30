@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="lib/calendar/calendar.css" rel="stylesheet">
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="cordova.js"></script>
+
+    <!-- your app's js -->
+    <script src="plugins/org.apache.cordova.customplugin/www/CustomPlugin.js"></script>
+    <script src="lib/calendar/moment.min.js"></script>
+    <script src="lib/data-export-lib/ng-cordova-file.js"></script>
+    <script src="lib/calendar/underscore-min.js"></script>
+    <script src="lib/highcharts/highcharts.js"></script>
+    <script src="lib/pdf-generator/pdfmake/pdfmake.min.js"></script>
+    <script src="lib/pdf-generator/pdfmake/vfs_fonts.js"></script>
+    <script src="js/app.js"></script>
+    <!-- Services Start -->
+    <script src="js/services/camera_api.js"></script>
+    <script src="js/services/map-api-service.js"></script>
+    <script src="js/services/db.service.js"></script>
+    <script src="js/services/common.service.js"></script>
+    <script src="js/services/chart.service.js"></script>
+    <script src="lib/pdf-generator/reportBuilderSvc.js"></script>
+    <script src="lib/pdf-generator/reportService.js"></script>
+    <!-- Services End -->
+    
+    <!-- Directives Start -->
+    <script src="js/directives/pie.chart.directive.js"></script>
+    <script src="js/directives/column.chart.directive.js"></script>
+    <script src="js/directives/change.view.directive.js"></script>
+    <script src="js/directives/calendar.directive.js"></script>
+    <!-- Directives End -->
+    
+    <!-- Controllers Start -->
+    <script src="js/controllers/expense.home.controller.js"></script>
+    <script src="js/controllers/daily.expense.controller.js"></script>
+    <script src="js/controllers/view.monthly.expense.controller.js"></script>
+    <script src="js/controllers/monthly.dashboard.controller.js"></script>
+    <script src="js/controllers/view.yearly.expense.controller.js"></script>
+    <script src="js/controllers/expenses.settings.controller.js"></script>
+    <script src="js/controllers/default.expenses.controller.js"></script>
+    <!-- Controllers End -->
+  </head>
+  <body ng-app="starter" class="platform-android platform-cordova platform-webview">
+     <ion-nav-bar animation="nav-title-slide-ios7" 
+                 type="bar-positive" 
+                 back-button-type="button-icon" 
+                 back-button-icon="ion-arrow-left-c"></ion-nav-bar>
+             
+    <ion-nav-view animation="slide-left-right"></ion-nav-view>
+  </body>
+</html>

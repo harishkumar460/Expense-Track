@@ -1,0 +1,44 @@
+<div class="bar bar-header bar-balanced">
+    <div class="row">
+    <div class="col col-10">
+	<i class="icon ion-home font-save" ng-click="goHome()"></i>
+	</div>
+	<div class="col col-80">
+	<h1 class="title">Default Expenses</h1>
+	</div>
+	<div class="col col-10">
+	<i class="icon ion-checkmark-round font-save" ng-click="saveDefaults()"></i>
+	</div>
+	</div>
+</div>
+<ion-content>
+<div class="monthly-view">
+<div class="row">
+	<div class="col col-40">Expense Name</div>
+	<div class="col col-40">Amount</div>
+	<div class="col col-20">Remove</div>
+   </div>
+<div class="list-container">
+	<div class="row" ng-repeat="expense in expenseSet track by $index">
+		<div class="col col-40">
+			<label class="item item-input"> <input type="text"
+				placeholder="Enter Expense Name" ng-model="expense.name"> </label>
+		</div>
+		<div class="col col-40">
+			<label class="item item-input"> <input type="number"
+				ng-model="expense.amount"> </label>
+		</div>
+		<div class="col col-20">
+			<a class="button button-icon icon ion-trash-a"
+				ng-click="deleteExpense($index)"></a>
+		</div>
+	</div>
+	<div class="row">
+	 <div class="col col-100 text-right">
+	 <button ng-click="addMore()"
+				class="button icon-left ion-plus-circled button-balanced">Add More</button>
+	 </div>
+	</div>
+</div>	
+</div>
+</ion-content>

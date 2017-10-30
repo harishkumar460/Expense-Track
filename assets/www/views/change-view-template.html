@@ -1,0 +1,14 @@
+<label class="item item-input item-select">
+	<div class="input-label">Change View</div> <select ng-model="dataView"
+	ng-change="toggleView(dataView)">
+	   <option><i class="icon ion-document-text"></i>List</option>
+		<option><i class="icon ion-pie-graph">Chart</option>
+</select> </label>
+<label ng-if="chartView" class="item item-input item-select">
+	<div class="input-label">Layout View</div> <select ng-model="chartType"
+	ng-change="changeChartView(chartType)">
+		<option>Pie</option>
+		<option>Column</option>
+		<option>Bar</option>
+		<option>Line</option>
+</select> </label>

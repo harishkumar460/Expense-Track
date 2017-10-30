@@ -1,0 +1,71 @@
+<ion-content>
+<div class="bar bar-header bar-balanced">
+	<i class="icon ion-home font-home" ng-click="goHome()"></i>
+	<h1 class="title">Backup Your Expenses</h1>
+</div>
+<div class="list-container">
+	<div class="row monthly-view">
+		<div class="col col-50">
+			<ion-radio ng-model="choice" ng-value="'ex'">Export</ion-radio>
+		</div>
+		<div class="col col-50">
+			<ion-radio ng-model="choice" ng-value="'im'">Import</ion-radio>
+		</div>
+	</div>
+	<!--End of first row-->
+	<!--Second Row-->
+	<div id="second-row-section" ng-if="choice==='ex'">
+		<ul class="list">
+			<li class="item item-checkbox">Create Backup file <label class="checkbox">
+					<input ng-model="backupFile" ng-click="fileOptions.backupFile=backupFile" type="checkbox" /> </label></li>
+
+			<li class="item item-checkbox">Generate PDF<label
+				class="checkbox"> <input type="checkbox" ng-click="fileOptions.pdfFile=pdfFile" ng-model="pdfFile" /> </label></li>
+		</ul>
+		<div class="row">
+			<div class="col col-100">
+				<label class="item item-input item-select">
+					<div class="input-label">Export By:</div> <select
+					ng-model="exportBy" ng-change="toggleExportBy(exportBy)">
+						<option selected="selected">Month</option>
+						<option>Year</option>
+				</select> </label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col col-100">
+				<label class="item item-input item-select" ng-if="exportByYear">
+					<div class="input-label">Year:</div> <select
+					id="dashboard-year-picker" ng-model="selectedYear"
+					ng-change="changeYear(selectedYear)">
+						<option ng-repeat="year in yearRange">{{::year}}</option>
+				</select> </label> <label class="item item-input" ng-if="!exportByYear">
+					<div class="input-label">Month:</div> <input type="month"
+					id="dashboard-month-picker" ng-model="selectedMonth"
+					ng-change="changeMonth(selectedMonth)"> </label>
+			</div>
+		</div>
+	</div>
+	<!--second-row-section -->
+	<!--End of Second Row-->
+	<!--Third Row-->
+	<div class="row">
+		<div class="col col-100"></div>
+	</div>
+	<!--End of Third Row-->
+	<!--Fourth Row-->
+	<div class="row" ng-if="choice!=='ex'">
+		<div class="col col-50">
+			<button ng-click="chooseFileToImport()"
+				class="button icon-left ion-document button-balanced">Choose
+				a file</button>
+		</div>
+		<div class="col col-50 text-right">
+			<button ng-click="runReport()"
+				class="button icon-left ion-document button-balanced">Create
+				PDF</button>
+		</div>
+	</div>
+	<!--End of Fourth Row-->
+</div>
+<!--End of List Container--> </ion-content>

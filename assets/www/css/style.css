@@ -1,0 +1,95 @@
+#mapContainer {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+}
+
+.controls {
+	margin-top: 5px;
+	border: 1px solid transparent;
+	border-radius: 2px 0 0 2px;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	height: 32px;
+	outline: none;
+	width: 95%;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+#pac-input {
+	background-color: #fff;
+	font-family: Roboto;
+	font-size: 13px;
+	font-weight: 300;
+	margin-left: 10px;
+	padding: 0 11px 0 13px;
+	text-overflow: ellipsis;
+	width: 95%;
+}
+#pac-input:focus {
+	border-color: #4d90fe;
+}
+
+.pac-container {
+	font-family: Roboto;
+}
+/*Expenses App */
+.border-right{
+border-right:solid 1px;
+}
+.border-top{
+border-top:solid 1px;
+}
+.color-white{
+color:#ffffff;
+}
+a.tab-item{
+opacity: 1;
+}
+.font-hi{
+font-size:50px
+}
+.font-home{
+font-size:30px;
+margin-top:4px;
+position:absolute;
+z-index:1;
+}
+.font-save{
+font-size:30px;
+margin-top:-8px;
+position:absolute;
+z-index:1;
+}
+.list-container{
+max-height:98%;
+height:98%;
+overflow:auto;
+}
+.list-container-edit{
+max-height:90%;
+height:90%;
+overflow:auto;
+}
+.custom-date-picker{
+ height:2px;
+ width:2px;
+}
+.text-right{
+text-align:right;
+}
+.monthly-view{
+margin-top:50px;
+}
+.m-l-10{
+margin-left:10px;
+}
+.font-bold{
+font-size:20px;
+font:bold;
+}
+.list-header-font{
+font-size:17px;
+font:bold;
+}
+/*Expenses App */

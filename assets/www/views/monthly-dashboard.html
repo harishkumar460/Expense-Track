@@ -1,0 +1,61 @@
+<ion-content>
+<div class="bar bar-header bar-balanced">
+	<i class="icon ion-home font-home" ng-click="goHome()"></i>
+	<h1 class="title">Monthly Dashboard</h1>
+</div>
+<div class="list-container">
+	<div class="row monthly-view">
+		<div class="col col-50">Report for Month</div>
+		<div class="col col-50">
+			<label class="item item-input"> <input type="month"
+				id="dashboard-month-picker" ng-model="selectedMonth"
+				ng-change="changeMonth(selectedMonth)"> </label>
+		</div>
+	</div>
+	<!--End of first row-->
+	<!--Second Row-->
+	<change-view chart-view="chartView" c-view="cView"
+		custom-type="customType" chart-options="chartOptions"
+		total-amount="totalAmount"> </change-view>
+	<!--End of Second Row-->
+	<!--Third Row-->
+	<div class="row font-bold">
+		<div class="col col-50">Total of the Month</div>
+		<div class="col col-50 text-right">
+			<span ng-bind="totalAmount"></span>
+		</div>
+	</div>
+	<!--End of Third Row-->
+	<div ng-if="chartView" id="chart-block">
+		<pie-chart ng-if="!customType" chart-data="chartData"
+			options="chartOptions"></pie-chart>
+		<column-chart ng-if="customType" chart-data="commonChartData"
+			options="chartOptions"></column-chart>
+	</div>
+	<!--End of Chart block-->
+	<div id="expenseDetails" ng-if="!chartView">
+		<!--Fifth Row-->
+		<ul class="list">
+		<!--Fourth Row-->
+		<li class="item" style="border:none">
+		<div class="row list-header-font">
+			<div class="col col-30">Date</div>
+			<div class="col col-40 text-right">Expense Count</div>
+			<div class="col col-30 text-right">Total</div>
+		</div>
+		 </li>
+		<!--End of Fourth Row-->
+		<li class="item" ng-repeat="expense in expenseSet">
+		<div class="row">
+			<div class="col col-30" ng-bind="expense.date"></div>
+			<div class="col col-40 text-right"
+				ng-bind="expense.expenseSet.length"></div>
+			<div class="col col-30 text-right" ng-bind="expense.totalAmount"></div>
+		</div>
+		</li>
+		</ul>
+		<!--End of Fifth Row-->
+	</div>
+	<!--End of ExpenseDetails div-->
+</div>
+<!--End of List Container--> </ion-content>

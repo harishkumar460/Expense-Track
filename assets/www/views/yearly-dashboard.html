@@ -1,0 +1,67 @@
+<ion-content>
+<div class="bar bar-header bar-balanced">
+	<i class="icon ion-home font-home" ng-click="goHome()"></i>
+	<h1 class="title">Yearly Dashboard</h1>
+</div>
+<div class="list-container">
+	<div class="row monthly-view">
+		<div class="col col-50">Report for Year</div>
+		<div class="col col-50">
+
+			<label class="item item-input item-select">
+				<div class="input-label">Year</div> <select
+				id="dashboard-year-picker" ng-model="selectedYear"
+				ng-change="changeYear(selectedYear)">
+					<option ng-repeat="year in yearRange">{{::year}}</option>
+			</select> </label>
+		</div>
+	</div>
+	<!--End of first row-->
+	<p ng-if="noRecordsFound">No Information found for this Year!</p>
+	<div id="info_container" ng-if="!noRecordsFound">
+		<!--Second Row-->
+		<change-view chart-view="chartView" c-view="cView"
+			custom-type="customType" chart-options="chartOptions"
+			total-amount="totalAmount"> </change-view>
+		<!--End of Second Row-->
+		<!--Third Row-->
+		<div class="row font-bold">
+			<div class="col col-50">Total of the Year</div>
+			<div class="col col-50 text-right">
+				<span ng-bind="totalAmount"></span>
+			</div>
+		</div>
+		<!--End of Third Row-->
+		<div ng-if="chartView" id="chart-block">
+			<pie-chart ng-if="!customType" chart-data="chartData"
+				options="chartOptions"></pie-chart>
+			<column-chart ng-if="customType" chart-data="commonChartData"
+				options="chartOptions"></column-chart>
+		</div>
+		<!--End of Chart block-->
+		<div id="expenseDetails" ng-if="!chartView">
+			<ul class="list">
+			<!--Fourth Row-->
+			<li class="item" style="border:none">
+			<div class="row list-header-font">
+				<div class="col col-40">Month</div>
+				<div class="col col-60 text-right">Total</div>
+			</div>
+			</li>
+			<!--End of Fourth Row-->
+			<!--Fifth Row-->
+			<li class="item" ng-repeat="expense in expenseSet">
+			<div class="row" >
+				<div class="col col-40" ng-bind="expense.name"></div>
+				<div class="col col-60 text-right" ng-bind="expense.y"></div>
+			</div>
+			</li>
+			</ul>
+			
+			<!--End of Fifth Row-->
+		</div>
+		<!--End of ExpenseDetails div-->
+	</div>
+	<!--End of info container-->
+</div>
+<!--End of List Container--> </ion-content>

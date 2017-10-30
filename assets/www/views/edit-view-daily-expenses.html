@@ -1,0 +1,45 @@
+<div class="bar bar-header bar-balanced">
+	<i class="icon ion-home font-home" ng-click="goHome()"></i>
+	<h1 class="title">{{selectedDate}}</h1>
+</div>
+<ion-content>
+<div class="list-container-edit">
+	<div class="row monthly-view">
+		<div class="col col-30">Expense Name</div>
+		<div class="col col-30">Amount</div>
+		<div class="col col-20">Remove</div>
+		<div class="col col-20">Default</div>
+	</div>
+	<div class="row" ng-repeat="expense in expenseSet track by $index">
+		<div class="col col-30">
+			<label class="item item-input"> <input type="text"
+				ng-model="expense.name"> </label>
+		</div>
+		<div class="col col-30">
+			<label class="item item-input"> <input type="number"
+				ng-model="expense.amount"> </label>
+		</div>
+		<div class="col col-20">
+			<a class="button button-icon icon ion-trash-a"
+				ng-click="deleteExpense($index)"></a>
+		</div>
+		<div class="col col-20">
+			<a href="" class="button button-icon icon ion-bookmark"
+				ng-class="expense.defaults?'assertive':''"></a>
+		</div>
+	</div>
+</div>
+<label class="item item-input" style="visibility:hidden;"> <input type="date"
+	id="date-picker" ng-model="selectedDay" ng-change="setSelectedDay()">
+</label>
+<div class="tabs tabs-icon-left balanced-bg color-white">
+	<a class="tab-item border-right" ng-click="prevDate()"> <i
+		class="icon ion-arrow-left-b "></i> </a> <a class="tab-item border-right"
+		ng-click="addNewExpense()"> <i class="icon ion-plus-circled"></i>
+		Add </a> <a class="tab-item border-right" ng-click="storeExpense()"> <i
+		class="icon ion-checkmark-round"></i> Save </a> <a
+		class="tab-item border-right" ng-click="openDatePicker('date-picker')">
+		<i class="icon ion-ios-calendar-outline"></i> Day </a> <a class="tab-item"
+		ng-click="nextDate()"> <i class="icon ion-arrow-right-b"></i> </a>
+</div>
+</ion-content>

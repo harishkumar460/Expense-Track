@@ -1,0 +1,64 @@
+<ion-content>
+<div class="bar bar-header bar-balanced">
+	<i class="icon ion-home font-home" ng-click="goHome()"></i>
+	<h1 class="title">{{day.format('dddd, MMMM Do YYYY')}}</h1>
+</div>
+<div class="list-container">
+	<calendar selected="day" select-month="changeMonth" next="nextCall"
+		previous="previousCall"></calendar>
+
+	<p ng-if="noRecordsFound">
+		No Records found for this day! <a href="#" ng-click="addNewExpense()">Add
+			Now</a>
+	</p>
+	<div id="all-data-view" ng-if="!noRecordsFound">
+		<change-view chart-view="chartView" c-view="cView"
+			custom-type="customType" chart-options="chartOptions"
+			total-amount="totalAmount"> </change-view>
+		<div class="row" id="general-options">
+			<div class="col col-80">
+				<a href="#" ng-click="editExpense()"><i class="icon ion-compose"></i>Edit</a>
+			</div>
+			<div class="col col-20 text-right font-bold">Total</div>
+		</div>
+		<div class="row" id="total-amount">
+			<div class="col text-right font-bold" ng-bind="totalAmount"></div>
+		</div>
+
+		<pie-chart ng-if="chartView && !customType" chart-data="chartData"
+			options="chartOptions"></pie-chart>
+		<column-chart ng-if="chartView && customType"
+			chart-data="commonChartData" options="chartOptions"></column-chart>
+
+		<div id="expenseDetails" ng-if="!chartView">
+		   <ul class="list">
+		   <li class="item" style="border:none">
+			<div class="row list-header-font" id="labels">
+				<div class="col col-80">Expense Name</div>
+				<div class="col col-20 text-right">Amount</div>
+			</div>
+			</li>
+			<li class="item" ng-repeat="expense in expenseSet">
+			<div class="row" id="expnseInfo" >
+				<div class="col col-80" ng-bind="expense.name"></div>
+				<div class="col col-20 text-right" ng-bind="expense.amount"></div>
+			</div>
+			</li>
+			</ul>
+		</div>
+	</div>
+	<!-- End of all data view-->
+</div>
+<!--End of list container--> <label class="item item-input" style="visibility:hidden;"> <input
+	type="month" id="month-picker" ng-model="selectedMonth"
+	ng-change="changeMonth(selectedMonth)"> </label>
+<div class="tabs tabs-icon-left balanced-bg color-white">
+	<a class="tab-item border-right" ng-click="previousCall()"> <i
+		class="icon ion-arrow-left-b "></i> Previous Month </a> <a
+		class="tab-item border-right"
+		ng-click="openMonthPicker('month-picker')"> <i
+		class="icon ion-ios-calendar-outline"></i> Select Month </a> <a
+		class="tab-item" ng-click="nextCall()"> Next Month <i
+		class="icon ion-arrow-right-b"></i> </a>
+</div>
+</ion-content>
