@@ -45,6 +45,11 @@ angular.module('starter', ['ionic','starter.services','starter.directives','star
       templateUrl: "./views/backup-expenses.html",
       controller: 'expensesSettingsCtrl'
     })
+    .state('secure-access', {
+      url: "/secure-access",
+      templateUrl: "./views/secure-pin-settings.html",
+      controller: 'expensesSettingsCtrl'
+    })
     .state('manage-defaults', {
       url: "/manage-defaults",
       templateUrl: "./views/manage-defaults-expenses.html",
@@ -54,6 +59,12 @@ angular.module('starter', ['ionic','starter.services','starter.directives','star
       cache:false,
       url: "/expenses-home",
       templateUrl: "./views/expenses-home.html",
+      controller: 'expenseHomeCtrl'
+    })
+    .state('secure-pin', {
+      cache:false,
+      url: "/secure-pin",
+      templateUrl: "./views/secure-pin.html",
       controller: 'expenseHomeCtrl'
     })
     .state('edit-view-daily-expenses', {

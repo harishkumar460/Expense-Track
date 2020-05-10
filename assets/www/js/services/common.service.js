@@ -32,4 +32,13 @@ serviceModule.service(
 		});
 		confirmPopup.then(callback);
 	    };
+	    self.showAlertModal= function(alertContent,callback) {
+		var confirmPopup = $ionicPopup.alert({
+		    title : alertContent.title,
+		    template : alertContent.message
+		});
+		if(callback){
+		 confirmPopup.then(callback);
+		}
+	    };
 	});

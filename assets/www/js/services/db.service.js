@@ -15,6 +15,10 @@ var serviceModule=angular.module('starter.services', []).service(
 		var data = JSON.parse(localStorage.getItem(key));
 		return data;
 	    };
+	    self.genericStorage=function(key, data){
+		data = JSON.stringify(data);
+		localStorage.setItem(key, data);
+	    };
 	    var removeKey = function(key) {
 		localStorage.removeItem(key);
 	    }

@@ -29,11 +29,12 @@ serviceModule.service('ReportBuilderSvc', reportBuilderService);
         
         function createReport(dataSet){
             self.reportData.totalAmount='Consolidated Total Amount : '+calculateTotalAmount(dataSet);
-            // self.reportData.pageBreak=dataSet.length>=30?'after':'';
+            //self.reportData.pageBreak=dataSet.length>=30?'after':'';
               self.reportData.reportContent.push(self.reportData.defaultHeader);
               angular.forEach(dataSet,function(dataRecord){
                  var recordRow=[];
                  angular.forEach(self.reportData.columns,function(column){
+                     console.log('dataRecord.expenseSet '+dataRecord.expenseSet);
            	  recordRow.push({text:(column==='count'?dataRecord.expenseSet.length:dataRecord[column])+'',style:'tableHeader'});  
                  });
                  self.reportData.reportContent.push(recordRow);
@@ -72,6 +73,7 @@ serviceModule.service('ReportBuilderSvc', reportBuilderService);
                 margin: [ 0, 12, 0, 0] // margin: [left, top, right, bottom]
             },*/
              // plz see the pdfMake.org site for examples of document definitions
+            console.log('In generate Report start');
 		self.reportDetails= { content: [      // margin: [left, top, right, bottom
 		getFormattedRow(self.reportData.mainHeader,[ 70, 12, 0, 0],'subheader'),
                 getSimpleLine([ 0, 4, 0, 12]),
@@ -83,7 +85,7 @@ serviceModule.service('ReportBuilderSvc', reportBuilderService);
                         pageBreak: self.reportData.pageBreak
                  } 
                 ] };
-                
+		console.log('In generate Report end '+JSON.stringify(self.reportDetails));
                 return self.reportDetails;
 		};
 		

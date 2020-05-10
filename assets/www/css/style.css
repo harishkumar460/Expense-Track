@@ -62,8 +62,8 @@ position:absolute;
 z-index:1;
 }
 .list-container{
-max-height:98%;
-height:98%;
+max-height:96%;
+height:96%;
 overflow:auto;
 }
 .list-container-edit{
@@ -78,7 +78,7 @@ overflow:auto;
 .text-right{
 text-align:right;
 }
-.monthly-view{
+.monthly-view,.top-margin{
 margin-top:50px;
 }
 .m-l-10{
@@ -91,5 +91,15 @@ font:bold;
 .list-header-font{
 font-size:17px;
 font:bold;
+}
+.update-pin-cta{
+margin-top:120px;
+text-align:center;
+}
+.text-center{
+text-align:center;
+}
+.top-margin-m{
+margin-top:90px;
 }
 /*Expenses App */

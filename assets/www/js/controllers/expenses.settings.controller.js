@@ -1,6 +1,7 @@
 controllersModule.controller('expensesSettingsCtrl',function($scope,$state,dbService,
-				$cordovaFile,ReportSvc,$ionicLoading,ReportBuilderSvc){
+				$cordovaFile,ReportSvc,$ionicLoading,ReportBuilderSvc,commonService){
     var yearList=[];
+    var backupDirectory='ExpenseBackup';
     var createYearList=function(year){
 	  if(year<=2099){  
 	  yearList.push(year+1);
@@ -9,7 +10,68 @@ controllersModule.controller('expensesSettingsCtrl',function($scope,$state,dbSer
 	    $scope.yearRange=yearList;  
 	  }  
     };
-    
+    $scope.setDisable=function(){
+     $scope.disableSecureAccess=true;
+     $scope.secureAccess.verifyPin='';
+    };
+    $scope.enableSecurePin=function(){
+	dbService.genericStorage('securePinStatus',{status:'enabled'});
+	commonService.showAlertModal({title:'Success!',
+		message:'Secure pin Access enabled!'});
+	    $scope.showDisableCta=true;
+	
+    };
+    $scope.verifyDisableSecurePin=function(){
+	var getCurrentPin=isCurrentPinExist();
+	console.log('current one '+JSON.stringify(getCurrentPin)+' inpt is '+$scope.secureAccess.verifyPin);
+	if(getCurrentPin && $scope.secureAccess.verifyPin && getCurrentPin.newPin===$scope.secureAccess.verifyPin){
+	    dbService.genericStorage('securePinStatus',{status:'disabled'});
+	    $scope.showDisableCta=false;
+	    $scope.disableSecureAccess=false;
+	    commonService.showAlertModal({title:'Success!',
+		message:'Secure pin Access disabled!'});
+	}else{
+	    commonService.showAlertModal({title:'Verificaion failed!',
+		message:'Please enter correct pin!'});  
+	}
+    };
+    function isCurrentPinExist(){
+     return dbService.getInfo('securePin');
+    }
+    $scope.changeSecurePin=function(){
+	$scope.showSecurePinForm=$scope.currentPinInput=true;
+	for(var key in $scope.secureAccess){
+	    $scope.secureAccess[key]='';  
+	}
+    };
+    $scope.verifyCurrentPin=function(){
+	var getCurrentPin=isCurrentPinExist();
+	console.log('current one '+JSON.stringify(getCurrentPin)+' inpt is '+$scope.secureAccess.currentPin);
+	if(getCurrentPin && $scope.secureAccess.currentPin){
+	  $scope.invalidCurrentPin= getCurrentPin.newPin!==$scope.secureAccess.currentPin;
+	  if($scope.invalidCurrentPin){
+	   $scope.secureAccess.currentPin='';   
+	  }else{
+	    $scope.currentPinVerified=true;  
+	  }
+	}
+    };
+    $scope.saveSecurePin=function(){
+      if($scope.secureAccessForm.$valid){
+	console.log('pin '+$scope.secureAccess.newPin+' confrm '+$scope.secureAccess.confirmPin);
+	dbService.genericStorage('securePin',$scope.secureAccess);
+	console.log('store info '+JSON.stringify(dbService.getInfo('securePin')));
+	commonService.showAlertModal({title:'Success!',
+			message:'Information saved!'});
+	$scope.showSecurePinForm=$scope.currentPinInput=false;
+	dbService.genericStorage('securePinStatus',{status:'enabled'});
+      }else{
+	  commonService.showAlertModal({title:'Invalid input provided!',
+	      				message:'Secure pin must be four digits'});
+	  $scope.secureAccess.newPin=$scope.secureAccess.confirmPin='';
+	  $scope.confirmMisMatch=false;
+      }
+    };
     $scope.goHome=function(){
 	       console.log('go to home');
 	       $state.go('expenses-home');
@@ -20,14 +82,19 @@ controllersModule.controller('expensesSettingsCtrl',function($scope,$state,dbSer
      $scope.toggleExportBy=function(exportBy){
 	 $scope.exportByYear=(exportBy==='Year');	 
      };
-     $scope.changeMonth=function(selectedMonth){
-	 var month=formatMonth(selectedMonth);
-	 console.log('selected export by month '+month);
-	 fetchDetails(month);
+     $scope.updateMonthYear=function(selectedInput){
+	 if($scope.exportByYear){
+	     $scope.selectedYear=selectedInput;
+	 }else{
+	     $scope.selectedMonth=selectedInput;  
+	 }
+	  
      };
-     $scope.changeYear=function(selectedYear){
-	 console.log('selected export by year '+selectedYear);
-	 fetchDetails(selectedYear);
+     $scope.exportReport=function(){
+	 console.log('export by '+$scope.exportByYear);
+	 var filterOption=$scope.exportByYear?$scope.selectedYear:formatMonth($scope.selectedMonth);
+	 console.log('selected export by '+filterOption);
+	 fetchDetails(filterOption);
      };
      $scope.chooseFileToImport=function(){
 	 /*var files=cordova.file.externalDataDirectory+'expense-backup7_2017.txt';
@@ -69,7 +136,7 @@ controllersModule.controller('expensesSettingsCtrl',function($scope,$state,dbSer
 	       });	 
      }
      function formatMonth(date){
-		return ((date.getMonth()+1)+'_'+date.getFullYear());
+	return ((date.getMonth()+1)+'_'+date.getFullYear());
       }
      var fetchDetails=function(exportBy){
 	       dbService.openIndexDB(exportBy,{action:'read',searchBy:'index'},function(status,dataSet){
@@ -85,9 +152,9 @@ controllersModule.controller('expensesSettingsCtrl',function($scope,$state,dbSer
     		      pdfFileOperation(dataSet);
 	 	    }
 	 	   } 
-	 	    $scope.$apply();
+	 	      $scope.$apply();
 	 	 }else{
-	 	     plugins.showToast('Error in data fetch operation!');
+	 	    plugins.showToast('Error in data fetch operation!');
 	 	 }
 	       });
 	   };
@@ -99,7 +166,6 @@ controllersModule.controller('expensesSettingsCtrl',function($scope,$state,dbSer
 	   
 	   function backupFileOperation(dataSet,exportBy){
 	     //cordova.file.externalDataDirectory
-	 	    var backupDirectory='ExpenseBackup';
 	 	    var fileTargetUrl=cordova.file.externalRootDirectory+'/'+backupDirectory;
 	 	    var fileName="expense-backup"+exportBy+".txt";
 	 	    if(!$scope.noRecordsFound){
@@ -142,6 +208,10 @@ controllersModule.controller('expensesSettingsCtrl',function($scope,$state,dbSer
      $scope.yearRange=[];
      $scope.exportBy='Month';
      $scope.fileOptions={backupFile:false,pdfFile:false};
+     $scope.backupFile=$scope.pdfFile=false;
+     $scope.secureAccess={};
+     $scope.showSecurePinForm=isCurrentPinExist()?false:true;
+     $scope.showDisableCta=true;
      createYearList(2014);
      createBackupDirectory();
     }

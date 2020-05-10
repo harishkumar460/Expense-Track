@@ -36,14 +36,19 @@
 			<div class="col col-100">
 				<label class="item item-input item-select" ng-if="exportByYear">
 					<div class="input-label">Year:</div> <select
-					id="dashboard-year-picker" ng-model="selectedYear"
-					ng-change="changeYear(selectedYear)">
+					id="dashboard-year-picker" ng-model="selectedYear" ng-change="updateMonthYear(selectedYear)">
 						<option ng-repeat="year in yearRange">{{::year}}</option>
 				</select> </label> <label class="item item-input" ng-if="!exportByYear">
 					<div class="input-label">Month:</div> <input type="month"
-					id="dashboard-month-picker" ng-model="selectedMonth"
-					ng-change="changeMonth(selectedMonth)"> </label>
+					id="dashboard-month-picker" ng-model="selectedMonth" ng-change="updateMonthYear(selectedMonth)"> 
+				</label>
 			</div>
+		</div>
+		<div class="row">
+		 <div class="col col-50">
+			<button ng-click="exportReport()"
+				class="button icon-left ion-document button-balanced">Export</button>
+		 </div>
 		</div>
 	</div>
 	<!--second-row-section -->
@@ -60,7 +65,7 @@
 				class="button icon-left ion-document button-balanced">Choose
 				a file</button>
 		</div>
-		<div class="col col-50 text-right">
+		<div class="col col-50 text-right" ng-if="false">
 			<button ng-click="runReport()"
 				class="button icon-left ion-document button-balanced">Create
 				PDF</button>

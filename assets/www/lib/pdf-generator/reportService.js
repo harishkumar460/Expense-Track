@@ -73,7 +73,7 @@
              return deferred.promise;
          }
 //
-// 1.GenerateReportDef: use currentTranscript to craft reportDef JSON for pdfMake to generate report
+//  1.GenerateReportDef: use currentTranscript to craft reportDef JSON for pdfMake to generate report
 //
 		function generateReportDef() {
             var deferred = $q.defer();
@@ -89,6 +89,7 @@
                 var dd = {};
                 dd = ReportBuilderSvc.generateReport()
 				deferred.resolve(dd);
+                console.log('dd end '+JSON.stringify(dd));
             }, 100);
             
             return deferred.promise;

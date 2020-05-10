@@ -1,0 +1,79 @@
+<form name="secureAccessForm">
+<div class="bar bar-header bar-balanced">
+    <div class="row">
+    <div class="col col-10">
+	<i class="icon ion-home font-save" ng-click="goHome()"></i>
+	</div>
+	<div class="col col-80">
+	<h1 class="title">Secure Pin Access</h1>
+	</div>
+	<div class="col col-10" ng-if="showSecurePinForm && !confirmMisMatch">
+	<i class="icon ion-checkmark-round font-save" ng-click="saveSecurePin()"></i>
+	</div>
+	</div>
+</div>
+<ion-content>
+<div class="monthly-view">
+<p class="top-margin-l m-l-10" ng-if="showSecurePinForm">Please enter four digits as a secure pin</p>
+<div class="list-container top-margin">
+   <div id="securepinForm" ng-if="showSecurePinForm">
+    <div class="row">
+		<div class="col col-100">
+			<p ng-if="invalidCurrentPin">Incorrect current Pin!</p>
+		    <label class="item item-input" ng-if="currentPinInput"> <input type="text"
+				placeholder="Enter your current pin" max="4" maxlength="4" min="4"
+				ng-blur="verifyCurrentPin()" ng-keyup="invalidCurrentPin=false"
+				ng-model="secureAccess.currentPin"> </label>
+	    </div>
+	</div>    			
+	<div class="row">
+		<div class="col col-100">
+			<label class="item item-input"> <input required type="text"
+				placeholder="Enter your pin here" max="4" maxlength="4" min="4"
+				ng-blur="confirmMisMatch=(secureAccess.newPin!==secureAccess.confirmPin)"
+				ng-model="secureAccess.newPin" ng-disabled="currentPinInput && !currentPinVerified"> </label>
+		</div>
+	</div>
+	<div class="row">	
+		<div class="col col-100">
+		   <p ng-if="confirmMisMatch">Confirm pin mismatch found!</p>
+			<label class="item item-input"> 
+			<input ng-blur="confirmMisMatch=(secureAccess.newPin!==secureAccess.confirmPin)" 
+			required min="4" max="4" placeholder="Confirm your pin" type="text" maxlength="4"
+				ng-model="secureAccess.confirmPin" ng-disabled="currentPinInput && !currentPinVerified"> </label>
+		</div>
+	</div>
+	</div>
+	<div class="row update-pin-cta" ng-if="!showSecurePinForm">
+		 <div class="col col-90">
+			<button ng-click="changeSecurePin()"
+				class="button icon-left ion-locked button-balanced">Change Secure Pin</button>
+		 </div>
+    </div>
+    <div class="row" ng-if="!showSecurePinForm">
+		 <div class="col col-90 text-center">
+			<button ng-click="setDisable()" ng-if="showDisableCta"
+				class="button icon-left ion-unlocked button-balanced">Disable Secure Pin</button>
+			<button ng-click="enableSecurePin()" ng-if="!showDisableCta"
+				class="button icon-left ion-unlocked button-balanced">Enable Secure Pin</button>
+		 </div>
+    </div>
+    <div id="disableSecurePinSection" ng-if="disableSecureAccess">
+    <div class="row">
+		<div class="col col-100">
+			<label class="item item-input"> <input type="text"
+				placeholder="Enter your pin here" maxlength="4"
+				ng-model="secureAccess.verifyPin"> </label>
+		</div>
+	</div>
+	<div class="row">
+		 <div class="col col-90">
+			<button ng-click="verifyDisableSecurePin()"
+				class="button icon-left ion-unlocked button-balanced">Verify & Confirm</button>
+		 </div>
+    </div>
+	</div>
+</div>
+</div>
+</ion-content>
+</form>

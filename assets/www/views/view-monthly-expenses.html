@@ -19,10 +19,10 @@
 			<div class="col col-80">
 				<a href="#" ng-click="editExpense()"><i class="icon ion-compose"></i>Edit</a>
 			</div>
-			<div class="col col-20 text-right font-bold">Total</div>
+			<div class="col col-20 text-right">Total</div>
 		</div>
 		<div class="row" id="total-amount">
-			<div class="col text-right font-bold" ng-bind="totalAmount"></div>
+			<div class="col text-right" ng-bind="totalAmount"></div>
 		</div>
 
 		<pie-chart ng-if="chartView && !customType" chart-data="chartData"

@@ -1,0 +1,25 @@
+<form name="securePinForm">
+<div class="bar bar-header bar-balanced">
+    <div class="row">
+    <div class="col col-100 text-center">
+	<h1 class="title">Secure Pin Access</h1>
+	</div>
+	</div>
+</div>
+<ion-content>
+<div class="monthly-view">
+<p class="top-margin-l m-l-10" ng-if="showSecurePinForm">Please enter your four digits pin</p>
+<div class="list-container top-margin">
+   <div id="securepinForm">
+   <div class="row update-pin-cta">
+		<div class="col col-100">
+			<label class="item item-input"> <input required type="text"
+				placeholder="Enter your pin here" ng-model="secureAccess.securePin" 
+				max="4" maxlength="4" min="4" ng-keyup="validateSecurePin()"> </label>
+		</div>
+	</div>
+	</div>
+</div>
+</div>
+</ion-content>
+</form>
